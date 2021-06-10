@@ -6,6 +6,14 @@ interface ReturnType {
     error: unknown | null;
 }
 
+/**
+ * Grabs data from the API
+ * @param url string API endpoint
+ * @param setData React.Dispatch<
+    React.SetStateAction<dataReturn | devIdReturn | serialNumReturn | null>
+  >
+ * @returns returns loading and error(if any)
+ */
 const useFetch = (
   url: string,
   setData: React.Dispatch<

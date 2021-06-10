@@ -1,15 +1,18 @@
 /* eslint-disable camelcase */
 import { Filters } from './selectHelpers';
 
+/**
+ * Contains reading, id, and serial endpoints.
+ */
 export const endpoints = {
   reading: '/api/reading',
   id: '/api/id',
   serial: '/api/serial',
 };
-export const baseURL = 'http://localhost:5000';
 
 // Change for build
-// export const baseURL = '';
+export const baseURL = '';
+// export const baseURL = 'http://localhost:5000';
 
 export interface devType {
     Device_ID: string;
@@ -47,6 +50,11 @@ export interface InputType {
   Serial_Number: string;
 }
 
+/**
+ * Gets url for different filter types.
+ * @param type Filters
+ * @returns a url string.
+ */
 export const getURL = (
   type: Filters,
 ): string => baseURL + (type === 'Device_ID' ? endpoints.id : endpoints.serial);
@@ -56,6 +64,11 @@ export interface DataPointReturn {
   y: number;
 }
 
+/**
+ * Returns only the DateTime and Wattage from readings
+ * @param readings dataReturn
+ * @returns all x and y dataPoints
+ */
 export const dataHandler = (readings: dataReturn): DataPointReturn[] => {
   const res = readings.results.map(({ DateTime, Wattage }) => ({
     x: DateTime,

@@ -4,18 +4,25 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import moment from 'moment';
-import { getDates, useStyles } from '../utils/selectHelpers';
-import { InputType } from '../utils/apiHelper';
+import { getDates, useStyles } from '../../utils/selectHelpers';
+import { InputType } from '../../utils/apiHelper';
 
 interface Props {
   inputs: InputType;
   setInputs: React.Dispatch<React.SetStateAction<InputType>>;
 }
 
+/**
+ * Creates date dropdown component
+ * @param inputs InputType
+ * @param setInputs React.Dispatch<React.SetStateAction<InputType>>
+ * @returns React component
+ */
 const DateSelect: React.FC<Props> = ({ inputs, setInputs }): ReactElement => {
   const classes = useStyles();
   const [state, setState] = useState<InputType>({ ...inputs });
 
+  // handles data change in dropdown
   const handleChange = (
     event: React.ChangeEvent<{
       name?: string;

@@ -3,12 +3,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { Filters, useStyles } from '../utils/selectHelpers';
+import { Filters, useStyles } from '../../utils/selectHelpers';
 import {
   dataReturn, devIdReturn, serialNumReturn,
   getURL, devType, serialType, InputType,
-} from '../utils/apiHelper';
-import useFetch from '../utils/useFetch.hook';
+} from '../../utils/apiHelper';
+import useFetch from '../../utils/useFetch.hook';
 
 interface Props {
   type: Filters;
@@ -22,6 +22,13 @@ interface SelectDetails {
   title: string;
 }
 
+/**
+ * Creates filter drop down components
+ * @param type Filters
+ * @param inputs InputType
+ * @param setInputs  React.Dispatch<React.SetStateAction<InputType>>
+ * @returns React component
+ */
 const FilterSelect: React.FC<Props> = ({ type, inputs, setInputs }) => {
   const classes = useStyles();
   const [state, setState] = useState<SelectDetails>({
@@ -34,8 +41,10 @@ const FilterSelect: React.FC<Props> = ({ type, inputs, setInputs }) => {
     setList,
   ] = useState<dataReturn | devIdReturn | serialNumReturn | null>(null);
 
+  // Load list of filters
   const { loading, error } = useFetch(getURL(type), setList);
 
+  // handles dropdown value change
   const handleChange = (
     event: React.ChangeEvent<{
       name?: string;

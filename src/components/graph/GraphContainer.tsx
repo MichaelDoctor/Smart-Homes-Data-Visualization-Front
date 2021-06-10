@@ -4,13 +4,19 @@ import ResultGraph from './ResultGraph';
 import {
   InputType, dataReturn, baseURL, endpoints,
   devIdReturn, serialNumReturn, dataHandler, DataPointReturn,
-} from '../utils/apiHelper';
-import useFetch from '../utils/useFetch.hook';
+} from '../../utils/apiHelper';
+import useFetch from '../../utils/useFetch.hook';
+import Spinner from '../hoc/Spinner';
 
 interface Props {
     data: InputType;
 }
 
+/**
+ * Container for line graph
+ * @param data InputType
+ * @returns React component
+ */
 const GraphContainer: React.FC<Props> = ({ data }) => {
   const [
     readings,
@@ -44,20 +50,22 @@ const GraphContainer: React.FC<Props> = ({ data }) => {
         {`${moment(data.date).format('LL')}`}
         <br />
         <em>
-          {data.Device_ID !== 'Any'
-            ? `Device ID: ${data.Device_ID}`
-            : 'Device ID: Any'}
-          <br />
           {data.Serial_Number !== 'Any'
             ? `Serial Number: ${data.Serial_Number}`
             : 'Serial Number: Any'}
           <br />
+          {data.Device_ID !== 'Any'
+            ? `Device ID: ${data.Device_ID}`
+            : 'Device ID: Any'}
+          <br />
         </em>
       </h3>
       <div className="graphcontainer">
-        {!loading && !error
-          ? <ResultGraph dataPoints={dataPoints} />
-          : 'Loading'}
+        {!loading && !error ? (
+          <ResultGraph dataPoints={dataPoints} />
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

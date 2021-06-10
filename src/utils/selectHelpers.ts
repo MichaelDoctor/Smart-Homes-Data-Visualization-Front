@@ -4,7 +4,9 @@ import moment from 'moment';
 // Filter columns
 export type Filters = 'Device_ID' | 'Serial_Number';
 
-// Select style
+/**
+ * MaterialUI select styling
+ */
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   formControl: {
     margin: theme.spacing(1),
@@ -15,7 +17,12 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-// Get list of valid dates
+/**
+ * Get list of valid dates based on datebase
+ * @param startDate string min date
+ * @param stopDate string max date
+ * @returns a list of valid dates
+ */
 export const getDates = (startDate: string, stopDate: string): string[] => {
   const dateArray: string[] = [];
   let start = moment(startDate);
