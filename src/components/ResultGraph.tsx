@@ -13,7 +13,7 @@ const ResultGraphs: React.FC<Props> = ({ dataPoints }): ReactElement => {
   const y: number[] = [];
   dataPoints.forEach((val) => {
     const values = Object.values(val);
-    x.push(moment(values[0]).format('LT'));
+    x.push(moment(values[0]).add(6, 'hours').format('LT'));
     y.push(values[1]);
   });
   const data: ChartData = {
@@ -31,16 +31,6 @@ const ResultGraphs: React.FC<Props> = ({ dataPoints }): ReactElement => {
   };
 
   const options: ChartOptions = {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Title',
-      },
-      legend: {
-        display: true,
-        position: 'bottom',
-      },
-    },
     responsive: true,
     scales: {
       y: {
@@ -50,6 +40,15 @@ const ResultGraphs: React.FC<Props> = ({ dataPoints }): ReactElement => {
         beginAtZero: true,
         title: {
           text: 'Watts',
+          display: true,
+        },
+      },
+      x: {
+        ticks: {
+          display: true,
+        },
+        title: {
+          text: 'Time',
           display: true,
         },
       },
