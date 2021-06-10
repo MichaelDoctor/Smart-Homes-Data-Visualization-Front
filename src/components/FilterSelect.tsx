@@ -1,16 +1,19 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Filters, useStyles } from '../utils/selectHelpers';
 import {
-  dataReturn, devIdReturn, serialNumReturn, getURL, devType, serialType,
-} from '../utils/apiReturnTypes';
+  dataReturn, devIdReturn, serialNumReturn,
+  getURL, devType, serialType, InputType,
+} from '../utils/apiHelper';
 import useFetch from '../utils/useFetch.hook';
 
-interface Props{
+interface Props {
   type: Filters;
+  inputs: InputType;
+  setInputs: React.Dispatch<React.SetStateAction<InputType>>;
 }
 
 interface SelectDetails {
@@ -19,7 +22,7 @@ interface SelectDetails {
   title: string;
 }
 
-const FilterSelect: React.FC<Props> = ({ type }): ReactElement => {
+const FilterSelect: React.FC<Props> = ({ type, inputs, setInputs }) => {
   const classes = useStyles();
   const [state, setState] = useState<SelectDetails>({
     label: type === 'Device_ID' ? 'ID' : 'SN',
@@ -44,6 +47,11 @@ const FilterSelect: React.FC<Props> = ({ type }): ReactElement => {
     setState({
       ...state,
       [name]: String(event.target.value),
+      value: String(event.target.value),
+    });
+    setInputs({
+      ...inputs,
+      [name]: String(event.target.value),
     });
   };
 
@@ -57,12 +65,12 @@ const FilterSelect: React.FC<Props> = ({ type }): ReactElement => {
           native
           value={state.value}
           onChange={handleChange}
-          name="value"
+          name={type}
           inputProps={{
             id: `${type}-native-required`,
           }}
         >
-          <option aria-label="None" value="" />
+          <option value="Any">Any</option>
           <optgroup label={`${state.title}s`}>
             {!loading && list && !error
               ? list?.results.map((val) => {

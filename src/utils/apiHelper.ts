@@ -41,6 +41,20 @@ export interface dataReturn {
   results: dataType[];
 }
 
+export interface InputType {
+  date: string;
+  Device_ID: string;
+  Serial_Number: string;
+}
+
 export const getURL = (
   type: Filters,
 ): string => baseURL + (type === 'Device_ID' ? endpoints.id : endpoints.serial);
+
+export const dataHandler = (
+  readings:
+  dataReturn | devIdReturn |
+  serialNumReturn | null,
+): void => {
+  console.log(readings);
+};

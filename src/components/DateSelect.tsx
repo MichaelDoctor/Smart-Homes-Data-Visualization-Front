@@ -4,16 +4,19 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import moment from 'moment';
-import { getDates, useStyles, CustomDateType } from '../utils/selectHelpers';
+import { getDates, useStyles } from '../utils/selectHelpers';
+import { InputType } from '../utils/apiHelper';
 
 interface Props {
-  setDate: React.Dispatch<React.SetStateAction<CustomDateType>>;
+  setInputs: React.Dispatch<React.SetStateAction<InputType>>;
 }
 
-const DateSelect: React.FC<Props> = ({ setDate }): ReactElement => {
+const DateSelect: React.FC<Props> = ({ setInputs }): ReactElement => {
   const classes = useStyles();
-  const [state, setState] = useState<CustomDateType>({
+  const [state, setState] = useState<InputType>({
     date: '2019-04-29',
+    Device_ID: 'Any',
+    Serial_Number: 'Any',
   });
 
   const handleChange = (
@@ -27,7 +30,7 @@ const DateSelect: React.FC<Props> = ({ setDate }): ReactElement => {
       ...state,
       [name]: String(event.target.value),
     });
-    setDate({
+    setInputs({
       ...state,
       [name]: String(event.target.value),
     });

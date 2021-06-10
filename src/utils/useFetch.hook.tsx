@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { dataReturn, devIdReturn, serialNumReturn } from './apiReturnTypes';
+import { dataReturn, devIdReturn, serialNumReturn } from './apiHelper';
 
 interface ReturnType {
     loading: boolean;

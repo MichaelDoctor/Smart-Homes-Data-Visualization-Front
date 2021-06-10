@@ -4,10 +4,6 @@ import moment from 'moment';
 // Filter columns
 export type Filters = 'Device_ID' | 'Serial_Number';
 
-export interface CustomDateType {
-  date: string;
-}
-
 // Select style
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   formControl: {
