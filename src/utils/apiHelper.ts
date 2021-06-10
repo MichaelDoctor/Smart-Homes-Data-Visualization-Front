@@ -51,10 +51,15 @@ export const getURL = (
   type: Filters,
 ): string => baseURL + (type === 'Device_ID' ? endpoints.id : endpoints.serial);
 
-export const dataHandler = (
-  readings:
-  dataReturn | devIdReturn |
-  serialNumReturn | null,
-): void => {
-  console.log(readings);
+export interface DataPointReturn {
+  x: Date;
+  y: number;
+}
+
+export const dataHandler = (readings: dataReturn): DataPointReturn[] => {
+  const res = readings.results.map(({ DateTime, Wattage }) => ({
+    x: DateTime,
+    y: Wattage,
+  }));
+  return res;
 };

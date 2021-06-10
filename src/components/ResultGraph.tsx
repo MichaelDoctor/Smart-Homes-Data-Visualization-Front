@@ -1,17 +1,31 @@
 import React, { ReactElement } from 'react';
 import { Line } from 'react-chartjs-2';
 import { ChartOptions, ChartData } from 'chart.js';
+import moment from 'moment';
+import { DataPointReturn } from '../utils/apiHelper';
 
-const ResultGraphs: React.FC = (): ReactElement => {
+interface Props {
+    dataPoints: DataPointReturn[]
+}
+
+const ResultGraphs: React.FC<Props> = ({ dataPoints }): ReactElement => {
+  const x: string[] = [];
+  const y: number[] = [];
+  dataPoints.forEach((val) => {
+    const values = Object.values(val);
+    x.push(moment(values[0]).format('LT'));
+    y.push(values[1]);
+  });
   const data: ChartData = {
-    labels: ['1', '2', '3', '4', '5', '6'],
+    labels: x,
     datasets: [
       {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Wattage',
+        data: y,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: '#17173A',
+        borderColor: '#17173A',
+        pointBackgroundColor: '#17173A',
       },
     ],
   };
@@ -35,7 +49,7 @@ const ResultGraphs: React.FC = (): ReactElement => {
         },
         beginAtZero: true,
         title: {
-          text: 'Y Axis',
+          text: 'Watts',
           display: true,
         },
       },
@@ -43,7 +57,7 @@ const ResultGraphs: React.FC = (): ReactElement => {
     maintainAspectRatio: false,
     elements: {
       point: {
-        radius: 10,
+        radius: 1,
       },
     },
   };

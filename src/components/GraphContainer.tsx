@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import ResultGraph from './ResultGraph';
 import {
-  InputType, dataReturn, baseURL,
-  endpoints, devIdReturn, serialNumReturn, dataHandler,
+  InputType, dataReturn, baseURL, endpoints,
+  devIdReturn, serialNumReturn, dataHandler, DataPointReturn,
 } from '../utils/apiHelper';
 import useFetch from '../utils/useFetch.hook';
 
@@ -18,6 +18,7 @@ const GraphContainer: React.FC<Props> = ({ data }) => {
   ] = useState<dataReturn | devIdReturn | serialNumReturn | null>(null);
 
   const [loading, setLoading] = useState(true);
+  const [dataPoints, setDataPoints] = useState<DataPointReturn[]>([]);
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +28,7 @@ const GraphContainer: React.FC<Props> = ({ data }) => {
     if (readings && loading) {
       // set loading to false to remove loading animation
       setLoading(false);
-      dataHandler(readings);
+      setDataPoints(dataHandler((readings as dataReturn)));
     }
   }, [readings]);
 
@@ -54,7 +55,9 @@ const GraphContainer: React.FC<Props> = ({ data }) => {
         </em>
       </h3>
       <div className="graphcontainer">
-        {!loading && !error ? <ResultGraph /> : 'Loading'}
+        {!loading && !error
+          ? <ResultGraph dataPoints={dataPoints} />
+          : 'Loading'}
       </div>
     </div>
   );

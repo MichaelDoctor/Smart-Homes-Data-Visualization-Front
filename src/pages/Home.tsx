@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     <div className="appcontainer">
       <h1 className="centerhead">Smart Homes Data Visualization</h1>
       <h4 className="centerhead">Filter</h4>
-      <FilterContainer setData={setData} />
+      <FilterContainer data={data} setData={setData} />
       <GraphContainer data={data} />
     </div>
   );

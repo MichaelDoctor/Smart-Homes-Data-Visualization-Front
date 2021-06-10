@@ -8,16 +8,13 @@ import { getDates, useStyles } from '../utils/selectHelpers';
 import { InputType } from '../utils/apiHelper';
 
 interface Props {
+  inputs: InputType;
   setInputs: React.Dispatch<React.SetStateAction<InputType>>;
 }
 
-const DateSelect: React.FC<Props> = ({ setInputs }): ReactElement => {
+const DateSelect: React.FC<Props> = ({ inputs, setInputs }): ReactElement => {
   const classes = useStyles();
-  const [state, setState] = useState<InputType>({
-    date: '2019-04-29',
-    Device_ID: 'Any',
-    Serial_Number: 'Any',
-  });
+  const [state, setState] = useState<InputType>({ ...inputs });
 
   const handleChange = (
     event: React.ChangeEvent<{
@@ -31,7 +28,7 @@ const DateSelect: React.FC<Props> = ({ setInputs }): ReactElement => {
       [name]: String(event.target.value),
     });
     setInputs({
-      ...state,
+      ...inputs,
       [name]: String(event.target.value),
     });
   };

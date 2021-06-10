@@ -5,26 +5,22 @@ import FilterSelects from './FilterSelect';
 import { InputType } from '../utils/apiHelper';
 
 interface Props {
+  data: InputType;
   setData: React.Dispatch<React.SetStateAction<InputType>>;
 }
 
-const FilterContainer: React.FC<Props> = ({ setData }) => {
-  const [inputs, setInputs] = useState<InputType>({
-    date: '2019-04-29',
-    Device_ID: 'Any',
-    Serial_Number: 'Any',
-  });
+const FilterContainer: React.FC<Props> = ({ data, setData }) => {
+  const [inputs, setInputs] = useState<InputType>({ ...data });
 
   const handleClick = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    console.log(inputs);
     setData({ ...inputs });
   };
   return (
     <div className="filtercontainer">
       <div className="filterselects">
         <div className="filterinner">
-          <DateSelect setInputs={setInputs} />
+          <DateSelect inputs={inputs} setInputs={setInputs} />
         </div>
         <div className="filterinner">
           <FilterSelects
