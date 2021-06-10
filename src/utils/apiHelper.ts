@@ -11,8 +11,8 @@ export const endpoints = {
 };
 
 // Change for build
-export const baseURL = '';
-// export const baseURL = 'http://localhost:5000';
+// export const baseURL = '';
+export const baseURL = 'http://localhost:5000';
 
 export interface devType {
     Device_ID: string;
